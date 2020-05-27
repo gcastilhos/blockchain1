@@ -37,7 +37,7 @@ var mockEventData = "Date|Time|EventID|Appl.ID |ActivePWR |ReactivePwr|Voltage|I
             previous_hash: ["0005100308e7e0bea95a3e88e4e406c37133f0929c80866bda04bc0bce53a14", '', '', '', '', ''],
             nonce: new Array(6).fill(''),
             eventData: new Array(6).fill(mockEventData),
-            active: new Array(blocks).fill(false),
+            active: new Array(6).fill(false),
             blocks: 1,
             rows: 1
         },
