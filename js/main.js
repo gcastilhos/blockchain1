@@ -21,34 +21,50 @@ sessionStorage.eventData = ["Date|Time|EventID|Appl.ID |ActivePWR |ReactivePwr|V
         }
         return {"nonce": nonce, "hash": hash_code};
     };
+  
+    var router = new VueRouter({
+        mode: 'history',
+        routes: []
+    });
 
     var app = new Vue({
+        router,
         el:'#app',
         data: {
-            block_no: ["000432", "000433", "000434", "000435", "000436", "000437"],
+            block_no: 432,
             hash: new Array(6).fill(''),
             original_hash: new Array(6).fill(''),
             previous_hash: ["0005100308e7e0bea95a3e88e4e406c37133f0929c80866bda04bc0bce53a14", '', '', '', '', ''],
             nonce: new Array(6).fill(''),
             eventData: sessionStorage.eventData.split(","),
             active: new Array(6).fill(false),
-            size: 6
+            blocks: 1,
+            size: 1
         },
         methods: {
             getHash: function(id) {
                 var data = _encode(id);
-                app.$set(app.nonce, id, data.nonce);
-                app.$set(app.hash, id, data.hash);
-                if (app.original_hash[id] === '') {
-                    app.$set(app.original_hash, id, app.hash[id]);
+                this.$set(this.nonce, id, data.nonce);
+                this.$set(this.hash, id, data.hash);
+                if (this.original_hash[id] === '') {
+                    this.$set(this.original_hash, id, this.hash[id]);
                 } else {
-                    app.$set(app.active, id, (app.original_hash[id] != app.hash[id]));
+                    this.$set(this.active, id, (this.original_hash[id] != this.hash[id]));
                 }
-                if (id < app.size - 1) {
-                    app.$set(app.previous_hash, id + 1, app.hash[id]);
-                    app.getHash(id + 1);
+                if (id < this.blocks - 1) {
+                    this.$set(this.previous_hash, id + 1, this.hash[id]);
+                    this.getHash(id + 1);
                 }
             }
+        },
+        filters: {
+            blockNoFormat: function(num) {
+                return ("000" + num).slice(-6);
+            }
+        },
+        mounted: function() {
+            this.blocks = this.$route.query.blocks !== undefined ? this.$route.query.blocks: 1;
+            this.size = Math.ceil(this.blocks / 2); 
         }
     });
 

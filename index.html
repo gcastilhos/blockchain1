@@ -10,20 +10,20 @@
                 <div class="left"></div>
                 <div id="app">
                     <h2>Blockchain1</h2>
-                    <div v-for="row in Math.ceil(size / 2)" class="row">
-                        <div v-for="column in Math.min(Math.ceil(size / 2), 2)" v-bind:class="{ cell_left: column % 2 == 1, cell_right: column % 2 == 0 }">
+                    <div v-for="row in size" class="row">
+                        <div v-for="column in Math.min(size, 2)" v-bind:class="{ cell_left: column % 2 == 1, cell_right: column % 2 == 0 }">
                             <form>
                                 <div>
                                     <img class="roof" v-bind:src="'./img/roof' + (2 * row + column - 2) + '.png'">
                                 </div>
-                                <table v-bind:class="{bg_red: active[2 * row + column - 3] && size > 1 }">
+                                <table v-bind:class="{bg_red: active[2 * row + column - 3] && blocks > 1 }">
                                     <tr>
                                         <th colspan="4">Consumption Data registered in a Blockchain Database</th>
                                     </tr>
                                     <tr>
                                         <td class="label">Block No</td>
                                         <td class="text">
-                                            <input disabled="true" type="text" v-model="block_no[2 * row + column - 3]" />
+                                            {{ block_no + 2 * row + column - 3 | blockNoFormat }}
                                         </td>
                                         <td class="label dark_blue">Nonce</td>
                                         <td class="text">
@@ -66,8 +66,8 @@
             </div>
         </div>
         <!-- Reference to Vue.js library -->
-        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-        <!-- Script Element for our first App -->
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+        <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
         <script src="./js/main.js"></script>
     </body>
