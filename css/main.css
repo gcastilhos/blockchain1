@@ -107,6 +107,15 @@ div.cell_right {
     object-fit: contain;
 }
 
+.block_no {
+    position: relative;
+    left: 180px;
+    top: 80px;
+    font-size: 16pt;
+    font-weight: bold;
+    font-family: Cablibri, Arial, Sans-serif;
+}
+
 /**
  * Input elements
  */
