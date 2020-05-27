@@ -26,10 +26,10 @@ sessionStorage.eventData = ["Date|Time|EventID|Appl.ID |ActivePWR |ReactivePwr|V
         el:'#app',
         data: {
             block_no: ["000432", "000433", "000434", "000435", "000436", "000437"],
-            hash: ['', '', '', '', '', ''],
-            original_hash: ['', '', '', '', '', ''],
+            hash: new Array(6).fill(''),
+            original_hash: new Array(6).fill(''),
             previous_hash: ["0005100308e7e0bea95a3e88e4e406c37133f0929c80866bda04bc0bce53a14", '', '', '', '', ''],
-            nonce: ['', '', '', '', '', ''],
+            nonce: new Array(6).fill(''),
             eventData: sessionStorage.eventData.split(","),
             active: new Array(6).fill(false),
             size: 6
