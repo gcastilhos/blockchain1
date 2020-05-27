@@ -57,7 +57,10 @@ sessionStorage.eventData = ["Date|Time|EventID|Appl.ID |ActivePWR |ReactivePwr|V
                 }
             },
             numCols: function(rows) {
-                return Math.min(rows, 2); 
+                if (2 * rows > this.blocks) {
+                    return 1;
+                }
+                return 2;
             },
             getIndex: function(row, column) {
                 return 2 * row + column - 3; 
@@ -69,7 +72,7 @@ sessionStorage.eventData = ["Date|Time|EventID|Appl.ID |ActivePWR |ReactivePwr|V
             }
         },
         mounted: function() {
-            this.blocks = this.$route.query.blocks !== undefined ? this.$route.query.blocks: 1;
+            this.blocks = this.$route.query.blocks !== undefined ? Math.min(this.$route.query.blocks, 6): 1;
             this.rows = Math.ceil(this.blocks / 2); 
         }
     });

@@ -11,7 +11,7 @@
                 <div id="app">
                     <h2>Blockchain1</h2>
                     <div v-for="row in rows" class="row">
-                        <div v-for="column in numCols(rows)" v-bind:class="{ cell_left: column % 2 == 1, cell_right: column % 2 == 0 }">
+                        <div v-for="column in numCols(row)" v-bind:class="{ cell_left: column % 2 == 1, cell_right: column % 2 == 0 }">
                             <form>
                                 <div>
                                     <img class="roof" v-bind:src="'./img/roof' + (getIndex(row, column) + 1) + '.png'">
