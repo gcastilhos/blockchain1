@@ -39,7 +39,7 @@ sessionStorage.eventData = ["Date|Time|EventID|Appl.ID |ActivePWR |ReactivePwr|V
             eventData: sessionStorage.eventData.split(","),
             active: new Array(6).fill(false),
             blocks: 1,
-            size: 1
+            rows: 1
         },
         methods: {
             getHash: function(id) {
@@ -55,6 +55,12 @@ sessionStorage.eventData = ["Date|Time|EventID|Appl.ID |ActivePWR |ReactivePwr|V
                     this.$set(this.previous_hash, id + 1, this.hash[id]);
                     this.getHash(id + 1);
                 }
+            },
+            numCols: function(rows) {
+                return Math.min(rows, 2); 
+            },
+            getIndex: function(row, column) {
+                return 2 * row + column - 3; 
             }
         },
         filters: {
@@ -64,7 +70,7 @@ sessionStorage.eventData = ["Date|Time|EventID|Appl.ID |ActivePWR |ReactivePwr|V
         },
         mounted: function() {
             this.blocks = this.$route.query.blocks !== undefined ? this.$route.query.blocks: 1;
-            this.size = Math.ceil(this.blocks / 2); 
+            this.rows = Math.ceil(this.blocks / 2); 
         }
     });
 
