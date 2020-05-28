@@ -2,7 +2,7 @@
 
 A demonstration application using blockchain technology.
 
-## Techonology Stack
+## Technology Stack
 
 * [Vue.js][1]
 * [Vue-Router][2]
