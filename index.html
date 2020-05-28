@@ -14,7 +14,7 @@
                         <div v-for="column in numCols(row)" v-bind:class="{ cell_left: column % 2 == 1, cell_right: column % 2 == 0 }">
                             <form>
                                 <div>
-                                    <div class="block_no">{{ "Block " + (getIndex(row, column) + 1) }} </div>
+                                    <div class="block_no">Block <span v-html="lpad((getIndex(row, column) + 1))" /></div>
                                     <img class="roof" src="./img/roof.png">
                                 </div>
                                 <table v-bind:class="{bg_red: active[getIndex(row, column)] && blocks > 1 }">

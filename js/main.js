@@ -35,12 +35,12 @@
         el:'#app',
         data: {
             block_no: 432,
-            hash: [],
-            previous_hash: [],
-            nonce: [],
+            hash: new Array(MAX_BLOCKS).fill(''),
+            previous_hash: new Array(MAX_BLOCKS).fill(''),
+            nonce: new Array(MAX_BLOCKS).fill(''),
             eventData: new Array(MAX_BLOCKS).fill(mockEventData),
             original_hash: new Array(MAX_BLOCKS).fill(''),
-            active: [],
+            active: new Array(MAX_BLOCKS).fill(''),
             blocks: 1,
             rows: 1
         },
@@ -68,12 +68,17 @@
             getIndex: function(row, column) {
                 return 2 * row + column - 3; 
             },
-            resetAttributes: function() {
-                this.$set(this.hash, new Array(this.blocks).fill(''))
-                this.$set(this.previous_hash, new Array(this.blocks).fill(''));
+            setInitialHash: function() {
                 this.$set(this.previous_hash, 0, "0005100308e7e0bea95a3e88e4e406c37133f0929c80866bda04bc0bce53a14");
-                this.$set(this.nonce, new Array(this.blocks).fill(''));
-                this.$set(this.active, new Array(this.blocks).fill(false));
+            },
+            lpad: function(num) {
+                if (num < 10) {
+                    return "&nbsp;&nbsp;" + num;
+                } else if (num < 100) {
+                    return "&nbsp;" + num;
+                } else {
+                    return num;
+                }
             }
         },
         filters: {
@@ -87,6 +92,6 @@
         }
     });
 
-    app.resetAttributes();
+    app.setInitialHash();
     app.getHash(0);
 })();
