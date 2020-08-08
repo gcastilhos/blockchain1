@@ -49,6 +49,22 @@ QUEUE_DATA=./data TEST_ENV=1 FLASK_ENV=development FLASK_APP=wsgi.py flask run
 
 The location of JSON files read by events hash and events categorization.
 
-### TEST_ENV
+### CORS Setup
 
-If set to a value that can be evaluated to true, then the CORS headers are included, so the Vue app can reach the local server for event data and hash conversion.
+The `CORS_URLS` environment variable contains the Cross-Origin websites that can access the API. The front-end application is a pure Vue.js app, without any server involved, considered a static website. The value is in JSON format.
+```
+CORS_URLS='{
+               "/events": {
+                   "origins": ["http://localhost:808*", "https://blockchain1aus-dev.herokuapp.com"]
+               },
+               "/hash": {
+                   "origins": ["http://localhost:808*", "https://blockchain1aus-dev.herokuapp.com"]
+               }
+           }'
+```
+
+This has to be set in the target environment (e.g., https:://eventqueue.herokuapp.com) with the Heroku command
+
+```
+heroku config:set CORS_URLS=... --app eventqueue
+```
