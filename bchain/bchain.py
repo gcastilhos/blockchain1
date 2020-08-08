@@ -41,14 +41,11 @@ def create_block():
     return LINE_BREAK.join(data + records)
 
 
-def create_hash(request):
+def create_hash(previous_hash, data):
     """Creates the hash based on parameters `previous` (hash)
     and (event) `data` in the request object.
     """
-    encoder = sha256()
-    params = dict(parse_qsl(request.query_string))
-    return proof_of_work(params.get(b'previous'),
-                         params.get(b'data'))
+    return proof_of_work(b'{previous_hash}', b'{data}')
 
 
 def create_block_chain(previous_hash, nonce, prefix="0000"):

@@ -35,9 +35,11 @@ def event_data():
     return create_block()
 
 
-@app.route("/hash")
+@app.route("/hash", methods=["POST"])
 def hashcode():
-    nonce, hash_code = create_hash(request)
+    json_params = request.get_json()
+    nonce, hash_code = create_hash(json_params.get('previous'),
+                                   json_params.get('data'))
     return jsonify(nonce, hash_code)
 
 
