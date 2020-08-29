@@ -2,8 +2,59 @@
 
 A demonstration application using blockchain technology.
 
+## Abstract
+
 This application is an RESTFul API that provides event records and the so-called Proof Of Work (POW) functionality for 
-the [blockchain1aus app](blockchain1aus.herokuapp.com) on [Heroku](https://heroku.com)
+the [blockchain1aus app](blockchain1aus.herokuapp.com) on [Heroku](https://heroku.com). The event queue provides a random generator of events for several applications, acting as a simulator for the random power events within a household. It is written in Python and hosted at [heroku.com](https://www.heroku.com).
+
+### Running Process
+
+The event queue application reads a datasource Python pickle file which contains 1,500 records. These records are read sequentially, with each field value receiving a random amount (either positive or negative) to make it unique for every call to the event queue.
+
+Every time the endpoint
+
+> https://eventqueue.herokuapp.com/events
+
+is requested, an event with the JSON response (sample) is sent back
+
+```
+{
+	"columns": ["Event_Id",
+				"Date",
+				"Time_24H",
+				"Duration_Min",
+				"Appl_Id",
+				"Appl.NAME",
+				"Global_active_power",
+				"Global_reactive_power",
+				"Voltage",
+				"Global_intensity",
+				"Total Subm. 1+2+3",
+				"Total measum. WH",
+				"POWER Composition [kWH]",
+				"USE CATEG",
+				"CATEGORY NAME (Literal)"],
+	"data": [
+		[40894,
+		 "29\/08\/2020",
+		 "16:25:51",
+		 1,
+		 "00010_c2",
+		 "PrinterKit",
+		 4.64,
+		 0.46,
+		 258.32,
+		 20.24,
+		 19,
+		 19,
+		 0.02,
+		 "E",
+		 "EDUCATION, COMMS, ENTERNTAINMENT"]
+	]
+}
+```
+
+The most notorious part of the response data is the `USE CATEG` and `CATEGORY NAME` fields, which are used in several applications to group be usage category.
 
 ## Host
 
@@ -80,53 +131,3 @@ This has to be set in the target environment (e.g., https:://eventqueue.herokuap
 ```
 heroku config:set CORS_URLS=... --app eventqueue
 ```
-## Running Process
-
-The event queue application reads a datasource Python pickle file which contains 1,500 records. These records are read sequentially, with each field value receiving a random amount (either positive or negative) to make it unique for every call to the event queue.
-
-Every time the endpoint
-
-> https://eventqueue.herokuapp.com/events
-
-is requested, an event with the JSON response (sample) is sent back
-
-```
-{
-	"columns": ["Event_Id",
-				"Date",
-				"Time_24H",
-				"Duration_Min",
-				"Appl_Id",
-				"Appl.NAME",
-				"Global_active_power",
-				"Global_reactive_power",
-				"Voltage",
-				"Global_intensity",
-				"Total Subm. 1+2+3",
-				"Total measum. WH",
-				"POWER Composition [kWH]",
-				"USE CATEG",
-				"CATEGORY NAME (Literal)"],
-	"data": [
-		[40894,
-		 "29\/08\/2020",
-		 "16:25:51",
-		 1,
-		 "00010_c2",
-		 "PrinterKit",
-		 4.64,
-		 0.46,
-		 258.32,
-		 20.24,
-		 19,
-		 19,
-		 0.02,
-		 "E",
-		 "EDUCATION, COMMS, ENTERNTAINMENT"]
-	]
-}
-```
-
-The most notorious part of the response data is the `USE CATEG` and `CATEGORY NAME` fields, which are used in several applications to group be usage category.
-
-The event queue provides a random generator of events for several applications, acting as a simulator for the random power events within a household.
