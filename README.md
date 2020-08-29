@@ -88,7 +88,7 @@ Every time the endpoint
 
 > https://eventqueue.herokuapp.com/events
 
-is requested, an event with the following format is sent back
+is requested, an event with the JSON response (sample) is sent back
 
 ```
 {
@@ -126,3 +126,5 @@ is requested, an event with the following format is sent back
 	]
 }
 ```
+
+The most notorious part of the response data is the `USE CATEG` and `CATEGORY NAME` fields, which are used in several applications to group be usage category.
