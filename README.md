@@ -128,3 +128,5 @@ is requested, an event with the JSON response (sample) is sent back
 ```
 
 The most notorious part of the response data is the `USE CATEG` and `CATEGORY NAME` fields, which are used in several applications to group be usage category.
+
+The event queue provides a random generator of events for several applications 
