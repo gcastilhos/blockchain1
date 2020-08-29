@@ -83,3 +83,46 @@ heroku config:set CORS_URLS=... --app eventqueue
 ## Running Process
 
 The event queue application reads a datasource Python pickle file which contains 1,500 records. These records are read sequentially, with each field value receiving a random amount (either positive or negative) to make it unique for every call to the event queue.
+
+Every time the endpoint
+
+> https://eventqueue.herokuapp.com/events
+
+is requested, an event with the following format is sent back
+
+```
+{
+	"columns": ["Event_Id",
+				"Date",
+				"Time_24H",
+				"Duration_Min",
+				"Appl_Id",
+				"Appl.NAME",
+				"Global_active_power",
+				"Global_reactive_power",
+				"Voltage",
+				"Global_intensity",
+				"Total Subm. 1+2+3",
+				"Total measum. WH",
+				"POWER Composition [kWH]",
+				"USE CATEG",
+				"CATEGORY NAME (Literal)"],
+	"data": [
+		[40894,
+		 "29\/08\/2020",
+		 "16:25:51",
+		 1,
+		 "00010_c2",
+		 "PrinterKit",
+		 4.64,
+		 0.46,
+		 258.32,
+		 20.24,
+		 19,
+		 19,
+		 0.02,
+		 "E",
+		 "EDUCATION, COMMS, ENTERNTAINMENT"]
+	]
+}
+```
