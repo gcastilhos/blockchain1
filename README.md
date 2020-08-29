@@ -1,4 +1,4 @@
-# Blockchain Demo App
+# Blockchain Demo App - Event Queue
 
 A demonstration application using blockchain technology.
 
@@ -7,12 +7,14 @@ the [blockchain1aus app](blockchain1aus.herokuapp.com) on [Heroku](https://herok
 
 ## Host
 
-[Event Queue for Blockchain1 on Heroku](https://eventqueue.herokuapp.com/)
+[Event Queue on Heroku](https://eventqueue.herokuapp.com/)
 
-### Endpoints
+## Endpoints
 
 For event records
-> https://eventqueue.herokuapp.com/events
+```
+https://eventqueue.herokuapp.com/events
+```
 
 For POW hash creation (returning the `nonce` and the hash from the given data)
 ```
@@ -21,14 +23,14 @@ https://eventqueue.herokuapp.com/hash?previous=<previous_hash>&data=<new_data>
 
 The querystring should carry the previous hash (starts with 0) and the data to be transformed.
 
-### Production Environment
+## Production Environment
 
 Setting the `PRODUCTION` flag in the production environment.
 ```
 heroku config:add PRODUCTION=True --app blockchain1aus
 ```
 
-### Security Policy
+## Security Policy
 
 The module `Talisman` requires a custom policy to allow common resources, including
 JS libraries, fonts, and images.
@@ -37,7 +39,7 @@ JS libraries, fonts, and images.
 heroku config:add CSP_DIRECTIVES="default-src 'self'; img-src *; script-src 'unsafe-eval' 'self' *.jsdelivr.net unpkg.com;" --app blockcahin1aus # or other app
 ```
 
-Local environment
+### Local environment
 ```
 export CSP_DIRECTIVES="default-src 'self'; img-src *; script-src 'unsafe-eval' 'self' *.jsdelivr.net unpkg.com;"
 ```
@@ -47,11 +49,7 @@ export CSP_DIRECTIVES="default-src 'self'; img-src *; script-src 'unsafe-eval' '
 * Python 3.8.3
 * Flask
 
-## Event Queue
-
-A third phase of the project includes a remote API providing records on a minute-by-minute basis. The API hosted on [heroku.com](https://eventqueue.herokuapp.com/events) will provided a record upon request. A queue runs on the server and guarantees that every record is unique.
-
-## Test Environment
+## Local Environment
 
 To run locally, some environment variables shoud be set and Flask can be run as
 
@@ -61,7 +59,7 @@ QUEUE_DATA=./data FLASK_ENV=development FLASK_APP=wsgi.py flask run
 
 ### QUEUE_DATA
 
-The location of JSON files read by events hash and events categorization.
+> The location of JSON files read by events hash and events categorization.
 
 ### CORS Setup
 
@@ -82,3 +80,6 @@ This has to be set in the target environment (e.g., https:://eventqueue.herokuap
 ```
 heroku config:set CORS_URLS=... --app eventqueue
 ```
+## Running Process
+
+The event queue application reads a datasource Python pickle file which contains 1,500 records. These records are read sequentially, with each field value receiving a random amount (either positive or negative) to make it unique for every call to the event queue.
